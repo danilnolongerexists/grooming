@@ -1,0 +1,69 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Orchid;
+
+use Orchid\Platform\Dashboard;
+use Orchid\Platform\ItemPermission;
+use Orchid\Platform\OrchidServiceProvider;
+use Orchid\Screen\Actions\Menu;
+use Orchid\Support\Color;
+
+class PlatformProvider extends OrchidServiceProvider
+{
+    /**
+     * Bootstrap the application services.
+     *
+     * @param Dashboard $dashboard
+     *
+     * @return void
+     */
+    public function boot(Dashboard $dashboard): void
+    {
+        parent::boot($dashboard);
+
+        // ...
+    }
+
+    /**
+     * Register the application menu.
+     *
+     * @return Menu[]
+     */
+    public function menu(): array
+    {
+        return [
+
+            Menu::make('Услуги')
+                ->icon('star')
+                ->route('platform.service.list'),
+
+            Menu::make('Расписание')
+                ->icon('star')
+                ->route('platform.appointment.list'),
+
+            Menu::make('Транзакции')
+                ->icon('star')
+                ->route('platform.transaction.list'),
+
+            Menu::make('Клиенты')
+                ->icon('star')
+                ->route('platform.client.list'),
+        ];
+    }
+
+    /**
+     * Register permissions for the application.
+     *
+     * @return ItemPermission[]
+     */
+    public function permissions(): array
+    {
+        return [
+            ItemPermission::group(__('System'))
+                ->addPermission('platform.systems.roles', __('Roles'))
+                ->addPermission('platform.systems.users', __('Users')),
+        ];
+    }
+}
